@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Noir Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .product-gallery {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .main-image {
+            flex: 2;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: zoom-in;
+        }
+        .main-image img {
+            width: 100%;
+            transition: transform 0.3s;
+        }
+        .main-image img:hover {
+            transform: scale(1.05);
+        }
+        .thumbnail-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .thumbnail-list img {
+            width: 100%;
+            border-radius: 16px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+        .thumbnail-list img.active, .thumbnail-list img:hover {
+            opacity: 1;
+            border: 2px solid var(--gold);
+        }
+        .rating {
+            color: var(--gold);
+            margin: 1rem 0;
+        }
+        .notes-section {
+            background: var(--charcoal);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .product-gallery { flex-direction: column; }
+            .thumbnail-list { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader"></div><p>Revealing the Scent...</p></div>
+<div id="toast-msg" class="toast-notify"></div>
+<div id="back-to-top" class="back-to-top"><i class="fas fa-chevron-up"></i></div>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo"><i class="fas fa-crown"></i> NOIR ESSENCE</div>
+        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="admin-login.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+        </ul>
+        <div class="nav-icons">
+            <i class="far fa-heart" style="cursor:pointer" onclick="window.location.href='shop.html'"></i>
+            <div class="cart-icon-wrapper" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container" id="product-detail-container"></div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><div class="logo">NOIR ESSENCE</div><p>Luxury perfumery crafted in Grasse, France.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="about.html">About</a></li></ul></div>
+            <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-map-marker-alt"></i> London Eye, UK</p><p><i class="fas fa-phone"></i> +91 888-777-6668</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 Noir Essence - All Rights Reserved</p></div>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id'));
+    const product = window.products.find(p => p.id === productId);
+    
+    if (product) {
+        document.getElementById('product-detail-container').innerHTML = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+                <div class="product-gallery">
+                    <div class="main-image"><img src="${product.image}" alt="${product.name}" id="mainImg"></div>
+                    <div class="thumbnail-list">
+                        <img src="${product.image}" class="active" onclick="document.getElementById('mainImg').src='${product.image}'">
+                        <img src="${product.image}" onclick="document.getElementById('mainImg').src='${product.image}'">
+                        <img src="${product.image}" onclick="document.getElementById('mainImg').src='${product.image}'">
+                    </div>
+                </div>
+                <div>
+                    <h1>${product.name}</h1>
+                    <div class="rating"><i class="fas fa-star"></i> ${product.rating} (${product.reviews} reviews)</div>
+                    <div class="price" style="font-size: 2rem;">₹${product.price.toLocaleString()}</div>
+                    <p>${product.description}</p>
+                    <div class="notes-section"><strong>Fragrance Notes</strong><br>${product.notes}</div>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <button class="btn-gold" onclick="addToCart({id:${product.id}, name:'${product.name}', price:${product.price}, image:'${product.image}'})">Add to Cart</button>
+                        <button class="btn-outline" onclick="window.location.href='cart.html'">Buy Now</button>
+                        <button class="btn-outline" onclick="toggleWishlist(${product.id})"><i class="far fa-heart"></i> Wishlist</button>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 4rem;">
+                <h2>You May Also Like</h2>
+                <div class="product-grid" id="related-grid"></div>
+            </div>
+        `;
+        // Related products
+        const related = window.products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3);
+        document.getElementById('related-grid').innerHTML = related.map(p => `
+            <div class="product-card" onclick="location.href='product-details.html?id=${p.id}'">
+                <img src="${p.image}"><h3>${p.name}</h3><div class="price">₹${p.price.toLocaleString()}</div>
+                <button class="btn-gold" onclick="event.stopPropagation(); addToCart({id:${p.id}, name:'${p.name}', price:${p.price}, image:'${p.image}'})">Add to Cart</button>
+            </div>
+        `).join('');
+    } else {
+        document.getElementById('product-detail-container').innerHTML = '<div class="container"><h2>Product not found</h2><a href="shop.html">Back to Shop</a></div>';
+    }
+</script>
+</body>
+</html>

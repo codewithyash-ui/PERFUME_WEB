@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Noir Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader"></div><p>Loading Collection...</p></div>
+<div id="toast-msg" class="toast-notify"></div>
+<div id="back-to-top" class="back-to-top"><i class="fas fa-chevron-up"></i></div>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo"><i class="fas fa-crown"></i> NOIR ESSENCE</div>
+        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="admin-login.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+        </ul>
+        <div class="nav-icons">
+            <i class="far fa-heart" style="cursor:pointer" onclick="window.location.href='shop.html'"></i>
+            <div class="cart-icon-wrapper" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Our Collection</span>
+            <h2>Shop All Perfumes</h2>
+        </div>
+        
+        <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+            <!-- Filters Sidebar -->
+            <div style="flex: 0 0 280px;">
+                <div class="glass-card">
+                    <h3><i class="fas fa-search"></i> Search</h3>
+                    <input type="text" id="search-input" placeholder="Search perfumes..." style="margin-bottom: 1.5rem; width: 100%; padding: 12px; border-radius: 12px;">
+                    
+                    <h3><i class="fas fa-filter"></i> Categories</h3>
+                    <select id="category-filter" style="margin-bottom: 1.5rem; width: 100%; padding: 12px; border-radius: 12px;">
+                        <option value="all">All Categories</option>
+                        <option value="oud">Oud Collection</option>
+                        <option value="floral">Floral Essence</option>
+                        <option value="amber">Amber & Vanilla</option>
+                        <option value="woody">Woody Aromas</option>
+                    </select>
+                    
+                    <h3><i class="fas fa-tag"></i> Price Range</h3>
+                    <input type="range" id="price-filter" min="0" max="15000" step="500" value="15000" style="width: 100%;">
+                    <p>Up to ₹<span id="price-value">15000</span></p>
+                    
+                    <h3><i class="fas fa-sort"></i> Sort By</h3>
+                    <select id="sort-filter" style="width: 100%; padding: 12px; border-radius: 12px;">
+                        <option value="default">Default</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Products Grid -->
+            <div style="flex: 1;">
+                <div id="shop-products-grid" class="product-grid"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><div class="logo">NOIR ESSENCE</div><p>Luxury perfumery crafted in Grasse, France.</p></div>
+            <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="about.html">About</a></li></ul></div>
+            <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-map-marker-alt"></i> London Eye, UK</p><p><i class="fas fa-phone"></i> +91 888-777-6668</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 Noir Essence - All Rights Reserved</p></div>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/shop.js"></script>
+</body>
+</html>

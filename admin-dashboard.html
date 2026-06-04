@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Noir Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader"></div><p>Loading Dashboard...</p></div>
+<div id="toast-msg" class="toast-notify"></div>
+
+<div style="padding: 1rem 2rem; background: var(--dark-charcoal); border-bottom: 1px solid var(--gold);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        <h2><i class="fas fa-crown" style="color: var(--gold);"></i> Noir Essence Admin</h2>
+        <div>
+            <span id="admin-name" style="margin-right: 1rem; color: var(--gold);">Yash</span>
+            <button class="btn-outline" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 2rem;">
+    <!-- Stats Cards -->
+    <div class="dashboard-stats">
+        <div class="dashboard-stat-card"><h3>Total Orders</h3><div class="value" id="total-orders">156</div></div>
+        <div class="dashboard-stat-card"><h3>Total Customers</h3><div class="value" id="total-customers">2,847</div></div>
+        <div class="dashboard-stat-card"><h3>Total Revenue</h3><div class="value" id="total-revenue">₹18.4L</div></div>
+        <div class="dashboard-stat-card"><h3>Conversion Rate</h3><div class="value" id="conversion-rate">3.2%</div></div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+        <h3>Sales Overview (Last 6 Months)</h3>
+        <canvas id="salesChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Orders Table -->
+    <div class="orders-table">
+        <h3>Recent Orders</h3>
+        <table>
+            <thead>
+                <tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody id="orders-table-body">
+                <tr><td>NOIR1001</td><td>John Doe</td><td>2025-01-15</td><td>₹12,500</td><td>Delivered</td><td><button class="btn-icon" onclick="showToast('Order details viewed')">View</button></td></tr>
+                <tr><td>NOIR1002</td><td>Jane Smith</td><td>2025-01-14</td><td>₹8,900</td><td>Processing</td><td><button class="btn-icon" onclick="showToast('Order details viewed')">View</button></td></tr>
+                <tr><td>NOIR1003</td><td>Emily Wilson</td><td>2025-01-13</td><td>₹14,500</td><td>Shipped</td><td><button class="btn-icon" onclick="showToast('Order details viewed')">View</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Product Management -->
+    <div class="product-management">
+        <h3>Product Management</h3>
+        <button class="btn-gold" style="margin-bottom: 1rem;" onclick="showToast('Add product form would open')">+ Add New Product</button>
+        <div id="product-list-admin"></div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script>
+    // Check admin login
+    if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'admin-login.html';
+    }
+
+    // Get admin username from localStorage or default to Yash
+    const adminUsername = localStorage.getItem('adminUsername') || 'Yash';
+    document.getElementById('admin-name').innerText = adminUsername;
+
+    function logout() {
+        localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('adminUsername');
+        showToast('Logged out successfully');
+        setTimeout(() => {
+            window.location.href = 'admin-login.html';
+        }, 500);
+    }
+
+    // Sales Chart
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
+            datasets: [{
+                label: 'Revenue (₹)',
+                data: [85000, 120000, 145000, 210000, 280000, 315000],
+                borderColor: '#d4af37',
+                backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: { 
+            responsive: true, 
+            plugins: { legend: { labels: { color: 'white' } } }, 
+            scales: { y: { ticks: { color: 'white' } }, x: { ticks: { color: 'white' } } } 
+        }
+    });
+
+    // Product Management Display
+    if (window.products) {
+        const productList = document.getElementById('product-list-admin');
+        if (productList) {
+            productList.innerHTML = window.products.map(p => `
+                <div class="product-row">
+                    <span><strong>${p.name}</strong> - ₹${p.price.toLocaleString()}</span>
+                    <div class="action-buttons">
+                        <button class="btn-icon" onclick="showToast('Edit ${p.name}')">Edit</button>
+                        <button class="btn-icon" onclick="showToast('Delete ${p.name}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+</script>
+</body>
+</html>

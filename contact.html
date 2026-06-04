@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Noir Essence</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div id="loading-screen"><div class="loader"></div><p>Connecting You...</p></div>
+<div id="toast-msg" class="toast-notify"></div>
+<div id="back-to-top" class="back-to-top"><i class="fas fa-chevron-up"></i></div>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <div class="logo"><i class="fas fa-crown"></i> NOIR ESSENCE</div>
+        <div class="mobile-menu-btn"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="admin-login.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+        </ul>
+        <div class="nav-icons">
+            <i class="far fa-heart" style="cursor:pointer" onclick="window.location.href='shop.html'"></i>
+            <div class="cart-icon-wrapper" onclick="window.location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Get In Touch</span>
+            <h2>Contact Us</h2>
+            <p>We'd love to hear from you. Our concierge team is here to assist.</p>
+        </div>
+
+        <div class="contact-info-grid">
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Us</h3>
+                <p>London Eye, County Hall<br>London SE1 7PB, UK</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Us</h3>
+                <p>+91 888-777-6668<br>Mon-Fri: 9am-6pm</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>hello@noiressence.com<br>support@noiressence.com</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-clock"></i>
+                <h3>Boutique Hours</h3>
+                <p>Monday-Saturday: 10am-8pm<br>Sunday: 11am-6pm</p>
+            </div>
+        </div>
+
+        <div class="split-layout">
+            <div class="glass-card contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contact-form">
+                    <input type="text" placeholder="Your Name" required style="margin-bottom: 1rem; width: 100%; padding: 12px; border-radius: 12px;">
+                    <input type="email" placeholder="Email Address" required style="margin-bottom: 1rem; width: 100%; padding: 12px; border-radius: 12px;">
+                    <input type="tel" placeholder="Phone Number" style="margin-bottom: 1rem; width: 100%; padding: 12px; border-radius: 12px;">
+                    <input type="text" placeholder="Subject" style="margin-bottom: 1rem; width: 100%; padding: 12px; border-radius: 12px;">
+                    <textarea rows="5" placeholder="Your Message" required style="margin-bottom: 1rem; width: 100%; padding: 12px; border-radius: 12px;"></textarea>
+                    <button type="submit" class="btn-gold">Send Message</button>
+                </form>
+            </div>
+            <div class="glass-card">
+                <h3>Store Locator</h3>
+                <p>Find a Noir Essence boutique near you. We have locations in London, Paris, Dubai, Mumbai, and New York.</p>
+                <button class="btn-outline" onclick="showToast('Store locator coming soon!')">Find a Store →</button>
+                <div class="map-container" style="margin-top: 1rem;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.680492639458!2d-0.119092684229311!3d51.50332497963578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea5a!2sLondon%20Eye!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col"><div class="logo">NOIR ESSENCE</div><p>Luxury perfumery crafted in Grasse, France.</p></div>
+            <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="about.html">About</a></li></ul></div>
+            <div class="footer-col"><h4>Contact</h4><p><i class="fas fa-map-marker-alt"></i> London Eye, UK</p><p><i class="fas fa-phone"></i> +91 888-777-6668</p></div>
+        </div>
+        <div class="footer-bottom"><p>© 2025 Noir Essence - All Rights Reserved</p></div>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script>
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showToast('Thank you! We\'ll respond within 24 hours.');
+        e.target.reset();
+    });
+</script>
+</body>
+</html>
